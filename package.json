@@ -1,0 +1,47 @@
+{
+  "name": "skillskill",
+  "version": "0.0.1",
+  "description": "List all skill files and related directories in your system, along with the space they take up. You can then select which ones you want to erase to clean up your projects and free up space.",
+  "keywords": [
+    "cli",
+    "skills",
+    "skill",
+    "skill-files",
+    "ai",
+    "ai-agents",
+    "coding-agents",
+    "claude",
+    "cursor",
+    "copilot",
+    "clean",
+    "cleanup",
+    "delete",
+    "remove",
+    "find",
+    "interactive"
+  ],
+  "homepage": "https://github.com/adityadeshlahre/skillskill#readme",
+  "bugs": {
+    "url": "https://github.com/adityadeshlahre/skillskill/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adityadeshlahre/skillskill.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Aditya Deshlahre",
+    "url": "https://github.com/adityadeshlahre",
+    "email": "wymaditya@gmail.com"
+  },
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node -r tsconfig-paths/register --loader ts-node/esm --no-warnings ./src/index.ts"
+    "test": "vitest"
+  },
+  "bin": {
+    "skillskill": "./dist/cli.js"
+  }
+}
