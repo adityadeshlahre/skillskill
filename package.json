@@ -29,7 +29,6 @@
     "url": "git+https://github.com/adityadeshlahre/skillskill.git"
   },
   "license": "MIT",
-  "type": "module",
   "main": "index.js",
   "exports": {
     ".": "./lib/index.js"
@@ -37,31 +36,41 @@
   "files": [
     "lib/**/*"
   ],
-  "author": {
-    "name": "Aditya Deshlahre",
-    "url": "https://github.com/adityadeshlahre",
-    "email": "wymaditya@gmail.com"
-  },
+  "author": "Aditya Deshlahre <wymaditya@gmail.com> (https://github.com/adityadeshlahre)",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "build": "tsc",
     "start": "node -r tsconfig-paths/register --loader ts-node/esm --no-warnings ./src/index.ts",
-    "test": "vitest"
+    "test": "vitest",
+    "publish": "npm run build && npm publish",
+    "prepublish": "npm run build",
+    "prepare": "husky"
   },
   "bin": {
-    "skillskill": "./dist/cli.js"
+    "skillskill": "dist/cli.js"
   },
   "dependencies": {
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^21.2.2",
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^26.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.68.0",
+    "@typescript-eslint/parser": "^8.68.0",
     "commitlint": "^21.2.2",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-n": "^18.3.0",
+    "eslint-plugin-promise": "^7.3.0",
     "husky": "^9.1.7",
+    "jest": "^30.4.2",
     "lint-staged": "^15.5.2",
     "prettier": "^3.6.2",
+    "ts-jest": "^29.4.12",
+    "typescript": "^6.0.3",
     "vitest": "^4.1.11"
   },
   "husky": {
@@ -74,5 +83,8 @@
     "*.{js,mjs,cjs,ts,json,md}": [
       "prettier --write"
     ]
+  },
+  "directories": {
+    "test": "test"
   }
 }

@@ -52,3 +52,4 @@ out/
 *.log
 /.cache/
 # End of https://github.com/github/gitignore
+tsconfig.tsbuildinfo
