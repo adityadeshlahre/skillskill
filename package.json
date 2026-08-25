@@ -29,19 +29,49 @@
     "url": "git+https://github.com/adityadeshlahre/skillskill.git"
   },
   "license": "MIT",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "files": [
+    "lib/**/*"
+  ],
   "author": {
     "name": "Aditya Deshlahre",
     "url": "https://github.com/adityadeshlahre",
     "email": "wymaditya@gmail.com"
   },
-  "type": "module",
-  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
-    "start": "node -r tsconfig-paths/register --loader ts-node/esm --no-warnings ./src/index.ts"
+    "start": "node -r tsconfig-paths/register --loader ts-node/esm --no-warnings ./src/index.ts",
     "test": "vitest"
   },
   "bin": {
     "skillskill": "./dist/cli.js"
+  },
+  "dependencies": {
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^21.2.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.6.2",
+    "vitest": "^4.1.11"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,json,md}": [
+      "prettier --write"
+    ]
   }
 }

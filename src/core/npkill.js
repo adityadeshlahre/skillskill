@@ -2,6 +2,8 @@ import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ScanStatus } from './interfaces/search-status.model.js';
 import { LoggerService } from './services/logger.service.js';
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Main class that implements core directory scanning and cleanup functionality.
@@ -42,8 +44,8 @@ export class Npkill {
   }
 
   isValidRootFolder(path) {
+    // Synchronous check using fs module imported at module level
     try {
-      const fs = await import('fs');
       const stat = fs.statSync(path);
       if (!stat.isDirectory()) {
         return { isValid: false, invalidReason: 'The path must point to a directory.' };
@@ -63,12 +65,12 @@ export class Npkill {
  * Create default file service
  */
 function createDefaultFileService() {
+  // Methods will be called async, so they return promises
   return {
     listDir: async (path, options) => {
       return await scanDirectory(path, options.targets || [], options.exclude || []);
     },
     getFolderSize: async (path) => {
-      const fs = await import('fs');
       try {
         const stats = fs.statSync(path);
         return stats.size;
@@ -77,10 +79,8 @@ function createDefaultFileService() {
       }
     },
     deleteDir: async (path) => {
-      const fs = await import('fs');
       try {
-        const fsModule = await import('fs');
-        fsModule.rmSync(path, { recursive: true, force: true });
+        fs.rmSync(path, { recursive: true, force: true });
         return true;
       } catch {
         return false;
@@ -95,7 +95,7 @@ function createDefaultFileService() {
  * Recursively scan directory for targets matching
  */
 async function scanDirectory(path, targets, exclude) {
-  const fs = await import('fs');
+  // fs already imported at module level
 
   const matchingFiles = [];
 

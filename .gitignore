@@ -1,0 +1,54 @@
+# See http://help.github.com/ignores for more about ignoring files.
+
+# node_modules/
+node_modules/
+
+# coverage reports
+coverage/
+
+# runtime artifacts
+dist/
+lib/
+
+# test artifacts
+.stryker-tmp
+stryker.log
+reports
+
+# vitest/coverage
+/.vitest
+
+# ide
+.vscode/
+.idea/
+
+# logs
+*.log
+
+# npm
+.pnp/
+
+# env
+.env
+
+# Next.js
+.next/
+out/
+
+# Turborepo
+.turbo/
+
+# Nuxt
+.nuxt/
+
+# Gatsby
+/cache/
+
+# electron
+/electron-vite/
+/electron-builder/
+
+# default
+*.log
+/.cache/
+# End of https://github.com/github/gitignore

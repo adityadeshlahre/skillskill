@@ -9,37 +9,37 @@ export const NpkillInterface = {
   logger: {},
 };
 
-export interface ScanOptions {
-  targets: string[];
-  exclude: string[];
-  performRiskAnalysis?: boolean;
-  sortBy?: string;
-}
+export const ScanOptions = {
+  targets: [],
+  exclude: [],
+  performRiskAnalysis: true,
+  sortBy: 'size'
+};
 
-export interface ScanFoundFolder {
-  path: string;
-  size: number;
-  modificationTime: number;
-  riskAnalysis: RiskAnalysis;
-  status: string;
-}
+export const ScanFoundFolder = {
+  path: '',
+  size: 0,
+  modificationTime: -1,
+  riskAnalysis: { isSensitive: false },
+  status: 'live'
+};
 
-export interface RiskAnalysis {
-  isSensitive: boolean;
-  reason?: string;
-}
+export const RiskAnalysis = {
+  isSensitive: false,
+  reason: undefined
+};
 
-export interface DeleteOptions {
-  dryRun?: boolean;
-}
+export const DeleteOptions = {
+  dryRun: false
+};
 
-export interface GetSizeResult {
-  size: number;
-  unit: string;
-}
+export const GetSizeResult = {
+  size: 0,
+  unit: 'bytes'
+};
 
-export interface GetNewestFileResult {
-  timestamp: number;
-  name: string;
-  path: string;
-}
+export const GetNewestFileResult = {
+  timestamp: 0,
+  name: '',
+  path: ''
+};
