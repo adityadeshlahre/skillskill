@@ -7,8 +7,7 @@ import { totalSize } from './scan.js';
 import { DEFAULT_PROFILES } from './constants.js';
 
 const HOME = os.homedir();
-const MARGINS = { ROW_RESULTS_START: 6, FOLDER_COLUMN_START: 1 };
-const CURSOR_COLOR = 'bgBlue';
+const MARGINS = { ROW_RESULTS_START: 5, FOLDER_COLUMN_START: 1 };
 
 export function formatSize(bytes: number): string {
   if (bytes >= 1073741824) return `${(bytes / 1073741824).toFixed(1)} GB`;
@@ -29,9 +28,7 @@ function groupByProfile(results: ScanResult[]): Map<string, ScanResult[]> {
     group.push(r);
     groups.set(key, group);
   }
-  for (const group of groups.values()) {
-    group.sort((a, b) => b.size - a.size);
-  }
+  for (const group of groups.values()) group.sort((a, b) => b.size - a.size);
   return groups;
 }
 
@@ -45,18 +42,12 @@ interface FlatItem {
 function buildFlatList(results: ScanResult[]): FlatItem[] {
   const groups = groupByProfile(results);
   const flat: FlatItem[] = [];
-  let globalIdx = 0;
-
+  let idx = 0;
   for (const [groupId, items] of groups) {
-    flat.push({
-      globalIndex: -1,
-      item: items[0],
-      group: groupId,
-      isGroupHeader: true,
-    });
+    flat.push({ globalIndex: -1, item: items[0], group: groupId, isGroupHeader: true });
     for (const item of items) {
-      globalIdx++;
-      flat.push({ globalIndex: globalIdx, item, group: groupId, isGroupHeader: false });
+      idx++;
+      flat.push({ globalIndex: idx, item, group: groupId, isGroupHeader: false });
     }
   }
   return flat;
@@ -65,6 +56,30 @@ function buildFlatList(results: ScanResult[]): FlatItem[] {
 function shortenText(text: string, width: number): string {
   if (text.length <= width) return text;
   return text.substring(0, width - 3) + '...';
+}
+
+function countSelectableBefore(flatList: FlatItem[], index: number): number {
+  let count = 0;
+  for (let i = 0; i < index; i++) {
+    if (!flatList[i].isGroupHeader) count++;
+  }
+  return count;
+}
+
+function selectableAtIndex(flatList: FlatItem[], selectNum: number): FlatItem | null {
+  let count = 0;
+  for (const item of flatList) {
+    if (item.isGroupHeader) continue;
+    count++;
+    if (count === selectNum) return item;
+  }
+  return null;
+}
+
+function totalSelectable(flatList: FlatItem[]): number {
+  let count = 0;
+  for (const item of flatList) if (!item.isGroupHeader) count++;
+  return count;
 }
 
 export interface TuiState {
@@ -82,17 +97,15 @@ export interface TuiState {
 }
 
 export class TuiRenderer {
-  private buffer = '';
-  private previousBuffer = '';
   private state: TuiState;
   private onKeyCallback: ((key: string, ctrl: boolean) => void) | null = null;
   private stdinRestore: (() => void) | null = null;
+  private renderedRowCount = 0;
 
   constructor(results: ScanResult[], dryRun: boolean) {
-    const flatList = buildFlatList(results);
     this.state = {
       results,
-      flatList,
+      flatList: buildFlatList(results),
       selected: new Set(),
       cursorIndex: 1,
       scroll: 0,
@@ -108,23 +121,17 @@ export class TuiRenderer {
   startListening(onKey: (key: string, ctrl: boolean) => void): void {
     this.onKeyCallback = onKey;
     readline.emitKeypressEvents(process.stdin);
-    if (process.stdin.isTTY) {
-      process.stdin.setRawMode(true);
-    }
+    if (process.stdin.isTTY) process.stdin.setRawMode(true);
     process.stdin.resume();
 
     const handler = (_: unknown, key: { name: string; sequence: string; ctrl: boolean }) => {
-      if (key.name !== '') {
-        this.onKeyCallback?.(key.name, key.ctrl);
-      }
+      if (key.name !== '') this.onKeyCallback?.(key.name, key.ctrl);
     };
     process.stdin.on('keypress', handler);
 
     this.stdinRestore = () => {
       process.stdin.removeListener('keypress', handler);
-      if (process.stdin.isTTY) {
-        process.stdin.setRawMode(false);
-      }
+      if (process.stdin.isTTY) process.stdin.setRawMode(false);
       process.stdin.pause();
     };
   }
@@ -134,176 +141,137 @@ export class TuiRenderer {
     this.stdinRestore = null;
   }
 
-  private print(text: string): void {
-    this.buffer += text;
+  private get terminal() {
+    return { columns: process.stdout.columns ?? 80, rows: process.stdout.rows ?? 24 };
   }
 
-  private printAt(text: string, x: number, y: number): void {
-    this.print(ansiEscapes.cursorTo(x, y));
-    this.print(text);
+  private get maxVisible(): number {
+    return this.terminal.rows - MARGINS.ROW_RESULTS_START - 2;
   }
 
-  private clearLine(row: number): void {
-    this.printAt(ansiEscapes.eraseLine, 0, row);
+  private out(text: string): void {
+    process.stdout.write(text);
   }
 
-  private flush(): void {
-    if (this.buffer === this.previousBuffer) {
-      this.buffer = '';
-      return;
-    }
-    process.stdout.write(this.buffer);
-    this.previousBuffer = this.buffer;
-    this.buffer = '';
+  private outAt(text: string, x: number, y: number): void {
+    process.stdout.write(ansiEscapes.cursorTo(x, y));
+    process.stdout.write(text);
   }
 
-  private get terminal(): { columns: number; rows: number } {
-    return {
-      columns: process.stdout.columns ?? 80,
-      rows: process.stdout.rows ?? 24,
-    };
-  }
-
-  private getVisibleItems(): FlatItem[] {
-    const { rows } = this.terminal;
-    const maxVisible = rows - MARGINS.ROW_RESULTS_START - 2;
-    const visible: FlatItem[] = [];
-
-    let count = 0;
-    for (let i = 0; i < this.state.flatList.length; i++) {
-      if (count >= maxVisible) break;
-      visible.push(this.state.flatList[i]);
-      if (!this.state.flatList[i].isGroupHeader) count++;
-    }
-    return visible;
-  }
-
-  private getSelectableItemAtCursor(): FlatItem | null {
-    const visible = this.getVisibleItems();
-    let selectableCount = 0;
-    for (const item of visible) {
-      if (item.isGroupHeader) continue;
-      selectableCount++;
-      if (selectableCount === this.state.cursorIndex) return item;
-    }
-    return null;
+  private clearRow(row: number): void {
+    process.stdout.write(ansiEscapes.cursorTo(0, row));
+    process.stdout.write(ansiEscapes.eraseLine);
   }
 
   render(): void {
-    const { columns, rows } = this.terminal;
+    const { columns } = this.terminal;
     const pathWidth = columns - 16;
+    const total = totalSelectable(this.state.flatList);
+    const scrollMax = Math.max(0, total - this.maxVisible);
 
-    this.buffer = '';
-    this.print(ansiEscapes.clearTerminal);
+    this.out(ansiEscapes.clearTerminal);
 
-    const title = this.state.dryRun
-      ? pc.bold('SkillSkill — DRY RUN')
-      : pc.bold('SkillSkill');
-    this.print(title + '\r\n');
+    const title = this.state.dryRun ? pc.bold('SkillSkill — DRY RUN') : pc.bold('SkillSkill');
+    this.out(title + '\r\n');
 
     if (this.state.selectMode) {
-      const selectedMsg = `${this.state.selected.size} selected `;
-      const instruction = pc.gray(
+      const sel = `${this.state.selected.size} selected `;
+      const keys = pc.gray(
         pc.bold('j') + '/' + pc.bold('k') + ': move | ' +
         pc.bold('SPACE') + ': toggle | ' +
         pc.bold('a') + ': all | ' +
         pc.bold('ENTER') + ': confirm | ' +
         pc.bold('q') + ': quit'
       );
-      const line = pc.bgYellow(pc.black(selectedMsg)) + ' ' + instruction;
-      this.print(line + '\r\n');
+      this.out(pc.bgYellow(pc.black(sel)) + ' ' + keys + '\r\n');
     }
+    this.out('\r\n');
 
-    this.print('\r\n');
+    let selectableCount = 0;
+    let drawnRows = 0;
 
-    const visible = this.getVisibleItems();
-    let selectableRow = 0;
-
-    for (const flatItem of visible) {
-      const row = MARGINS.ROW_RESULTS_START + selectableRow;
-      this.clearLine(row);
-
+    for (const flatItem of this.state.flatList) {
       if (flatItem.isGroupHeader) {
-        const name = getProfileName(flatItem.group);
-        const items = this.state.results.filter(
-          (r) => r.profileId.split(',')[0] === flatItem.group
-        );
-        const subtotal = formatSize(totalSize(items));
-        const header = pc.cyan(`=== ${name} (${items.length} items, ${subtotal}) ===`);
-        this.printAt(header, MARGINS.FOLDER_COLUMN_START, row);
-        selectableRow++;
+        if (selectableCount >= this.state.scroll && drawnRows < this.maxVisible) {
+          const name = getProfileName(flatItem.group);
+          const items = this.state.results.filter((r) => r.profileId.split(',')[0] === flatItem.group);
+          const sub = formatSize(totalSize(items));
+          const row = MARGINS.ROW_RESULTS_START + drawnRows;
+          this.clearRow(row);
+          this.outAt(pc.cyan(`=== ${name} (${items.length} items, ${sub}) ===`), MARGINS.FOLDER_COLUMN_START, row);
+          drawnRows++;
+        }
         continue;
       }
 
+      selectableCount++;
+      if (selectableCount <= this.state.scroll) continue;
+      if (drawnRows >= this.maxVisible) break;
+
+      const row = MARGINS.ROW_RESULTS_START + drawnRows;
       const item = flatItem.item;
-      const globalIdx = flatItem.globalIndex;
-      const isCursor = this.state.cursorIndex === (selectableRow + 1) && this.state.mode === 'select';
-      const isSelected = this.state.selected.has(globalIdx);
-      const num = String(globalIdx).padStart(2, ' ');
+      const idx = flatItem.globalIndex;
+      const isCursor = selectableCount === this.state.cursorIndex;
+      const isSel = this.state.selected.has(idx);
+      const num = String(idx).padStart(2, ' ');
       const size = formatSize(item.size).padStart(6, ' ');
-      const displayPath = shortenText(
+      const path = shortenText(
         item.path.startsWith(HOME) ? `~${item.path.slice(HOME.length)}` : item.path,
         pathWidth
       );
 
-      let indicator = '  ';
-      if (isSelected) indicator = pc.green('✔ ');
+      this.clearRow(row);
 
-      let line: string;
       if (isCursor) {
-        const content = `${num} ${size} ${indicator}${displayPath}`;
-        line = pc[CURSOR_COLOR](content);
-        this.printAt(pc[CURSOR_COLOR](' '.repeat(columns - 1)), 0, row);
-      } else if (isSelected) {
-        line = `${num} ${size} ${pc.green('✔ ')}${pc.blue(displayPath)}`;
+        const bg = ' '.repeat(columns - 1);
+        let content = `${num} ${size}  ${path}`;
+        if (isSel) content = `${num} ${size} ${pc.green('✔ ')}${path}`;
+        this.outAt(pc.bgBlue(bg), 0, row);
+        this.outAt(pc.bgBlue(content), MARGINS.FOLDER_COLUMN_START, row);
+      } else if (isSel) {
+        this.outAt(`${num} ${size} ${pc.green('✔ ')}${pc.blue(path)}`, MARGINS.FOLDER_COLUMN_START, row);
       } else {
-        line = `${num} ${size}  ${displayPath}`;
+        this.outAt(`${num} ${size}  ${path}`, MARGINS.FOLDER_COLUMN_START, row);
       }
 
-      this.printAt(line, MARGINS.FOLDER_COLUMN_START, row);
-      selectableRow++;
+      drawnRows++;
     }
 
-    const totalRow = rows - 2;
-    this.clearLine(totalRow);
-    const total = formatSize(totalSize(this.state.results));
-    this.printAt(pc.bold(`Total: ${this.state.results.length} items, ${total}`), 0, totalRow);
+    for (let r = drawnRows; r < this.maxVisible; r++) {
+      this.clearRow(MARGINS.ROW_RESULTS_START + r);
+    }
 
-    this.printScrollBar();
-    this.flush();
+    const totalRow = this.terminal.rows - 2;
+    this.clearRow(totalRow);
+    this.outAt(pc.bold(`Total: ${this.state.results.length} items, ${formatSize(totalSize(this.state.results))}`), 0, totalRow);
+
+    this.renderScrollBar(scrollMax, total);
   }
 
-  private printScrollBar(): void {
-    const { rows } = this.terminal;
-    const totalResults = this.state.results.length;
-    const maxVisible = rows - MARGINS.ROW_RESULTS_START - 2;
-
-    if (totalResults <= maxVisible) return;
-
-    const scrollBarBg = pc.gray('┊');
-    const scrollBarActive = pc.gray('█');
+  private renderScrollBar(scrollMax: number, total: number): void {
+    if (total <= this.maxVisible) return;
+    const { rows, columns } = this.terminal;
+    const barBg = pc.gray('┊');
+    const barActive = pc.gray('█');
     const start = MARGINS.ROW_RESULTS_START;
     const end = rows - 3;
-    const scrollPercentage = this.state.scroll / (totalResults - maxVisible);
-    const scrollBarPosition = Math.round(scrollPercentage * (end - start) + start);
+    const pct = scrollMax > 0 ? this.state.scroll / scrollMax : 0;
+    const pos = Math.round(pct * (end - start) + start);
 
     for (let i = start; i <= end; i++) {
-      this.printAt(scrollBarBg, this.terminal.columns - 1, i);
+      this.outAt(barBg, columns - 1, i);
     }
-    this.printAt(scrollBarActive, this.terminal.columns - 1, scrollBarPosition);
+    this.outAt(barActive, columns - 1, pos);
   }
 
   moveCursor(delta: number): void {
-    const maxSelectable = this.state.results.length;
-    const oldIndex = this.state.cursorIndex;
-    this.state.cursorIndex = Math.max(1, Math.min(maxSelectable, this.state.cursorIndex + delta));
-    if (oldIndex !== this.state.cursorIndex) this.fitScroll();
+    const total = totalSelectable(this.state.flatList);
+    this.state.cursorIndex = Math.max(1, Math.min(total, this.state.cursorIndex + delta));
+    this.fitScroll();
   }
 
   moveCursorPage(delta: number): void {
-    const { rows } = this.terminal;
-    const pageSize = rows - MARGINS.ROW_RESULTS_START - 2;
-    this.moveCursor(delta * pageSize);
+    this.moveCursor(delta * this.maxVisible);
   }
 
   moveCursorFirst(): void {
@@ -312,55 +280,41 @@ export class TuiRenderer {
   }
 
   moveCursorLast(): void {
-    this.state.cursorIndex = this.state.results.length;
+    this.state.cursorIndex = totalSelectable(this.state.flatList);
     this.fitScroll();
   }
 
   private fitScroll(): void {
-    const { rows } = this.terminal;
-    const maxVisible = rows - MARGINS.ROW_RESULTS_START - 2;
-    const cursorRow = this.state.cursorIndex + this.state.scroll;
+    const total = totalSelectable(this.state.flatList);
+    const scrollMax = Math.max(0, total - this.maxVisible);
 
-    if (cursorRow < this.state.scroll + 1) {
-      this.state.scroll = cursorRow - 1;
-    } else if (cursorRow > this.state.scroll + maxVisible) {
-      this.state.scroll = cursorRow - maxVisible;
+    if (this.state.cursorIndex <= this.state.scroll) {
+      this.state.scroll = this.state.cursorIndex - 1;
+    } else if (this.state.cursorIndex > this.state.scroll + this.maxVisible) {
+      this.state.scroll = this.state.cursorIndex - this.maxVisible;
     }
-    this.state.scroll = Math.max(0, Math.min(this.state.scroll, this.state.results.length - maxVisible));
+
+    this.state.scroll = Math.max(0, Math.min(this.state.scroll, scrollMax));
   }
 
   toggleSelect(): void {
-    const item = this.getSelectableItemAtCursor();
+    const item = selectableAtIndex(this.state.flatList, this.state.cursorIndex);
     if (!item) return;
     const idx = item.globalIndex;
-    if (this.state.selected.has(idx)) {
-      this.state.selected.delete(idx);
-    } else {
-      this.state.selected.add(idx);
-    }
+    if (this.state.selected.has(idx)) this.state.selected.delete(idx);
+    else this.state.selected.add(idx);
   }
 
   toggleSelectAll(): void {
     if (this.state.selected.size === this.state.results.length) {
       this.state.selected.clear();
     } else {
-      for (let i = 1; i <= this.state.results.length; i++) {
-        this.state.selected.add(i);
-      }
+      for (let i = 1; i <= this.state.results.length; i++) this.state.selected.add(i);
     }
   }
 
   setMode(mode: TuiState['mode']): void {
     this.state.mode = mode;
-  }
-
-  updateDeletionResult(ok: boolean, path: string, size: number): void {
-    if (ok) {
-      this.state.deleted++;
-      this.state.freedBytes += size;
-    } else {
-      this.state.failed++;
-    }
   }
 
   getSelectedResults(): ScanResult[] {
@@ -371,8 +325,8 @@ export class TuiRenderer {
 
   exit(): void {
     this.stopListening();
-    this.print(ansiEscapes.cursorShow);
-    this.print('\r\n');
+    this.out(ansiEscapes.cursorShow);
+    this.out('\r\n');
   }
 }
 
@@ -391,11 +345,7 @@ export function printJSON(results: ScanResult[], profiles: SkillProfile[], rootD
     totalSizeBytes += size;
     profilesOutput[profile.id] = {
       name: profile.name,
-      items: items.map((r) => ({
-        path: r.path,
-        sizeBytes: r.size,
-        profileId: r.profileId,
-      })),
+      items: items.map((r) => ({ path: r.path, sizeBytes: r.size, profileId: r.profileId })),
       totalSizeBytes: size,
       count: items.length,
     };
