@@ -3,14 +3,26 @@ import * as path from 'path';
 import { SkillProfile, ScanResult } from './interfaces/config.interface.js';
 import { expandHome } from './config.js';
 
+const SIZE_EXCLUDES = new Set([
+  'node_modules',
+  'dist',
+  'build',
+  '.next',
+  '.cache',
+  '.turbo',
+  '.parcel-cache',
+  '.coverage',
+]);
+
 export function getFolderSize(dirPath: string): number {
   let total = 0;
   try {
     const entries = fs.readdirSync(dirPath, { withFileTypes: true });
     for (const entry of entries) {
+      if (entry.isDirectory() && SIZE_EXCLUDES.has(entry.name)) continue;
       const fullPath = path.join(dirPath, entry.name);
       try {
-        if (entry.isDirectory()) {
+        if (entry.isDirectory() || (entry.isSymbolicLink() && fs.statSync(fullPath).isDirectory())) {
           total += getFolderSize(fullPath);
         } else {
           total += fs.statSync(fullPath).size;
@@ -80,9 +92,22 @@ function listDir(dirPath: string, options: { exclude: string[] }): string[] {
   try {
     const entries = fs.readdirSync(dirPath, { withFileTypes: true });
     for (const entry of entries) {
-      if (!entry.isDirectory()) continue;
+      const isDir = entry.isDirectory();
+      const isSymlink = entry.isSymbolicLink();
+      if (!isDir && !isSymlink) continue;
+
       const fullPath = path.join(dirPath, entry.name);
       if (options.exclude.some((pat) => fullPath.includes(pat))) continue;
+
+      // For symlinks, stat to check if target is a directory
+      if (isSymlink) {
+        try {
+          if (!fs.statSync(fullPath).isDirectory()) continue;
+        } catch {
+          continue; // broken symlink
+        }
+      }
+
       results.push(fullPath);
     }
   } catch {
