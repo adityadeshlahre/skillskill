@@ -3,15 +3,16 @@
 import * as readline from 'readline';
 import { CLIArgs } from './core/interfaces/config.interface.js';
 import { loadConfig, resolveConfig } from './core/config.js';
-import { scanWithProfiles } from './core/scan.js';
+import { scanWithProfiles, totalSize } from './core/scan.js';
 import { parseSelection } from './core/selection.js';
-import { deleteDir } from './core/npkill.js';
+import { deleteDir } from './core/delete.js';
 import {
   printScanResults,
   printConfirmation,
   printDeletionProgress,
   printSummary,
   formatSize,
+  printJSON,
 } from './core/display.js';
 
 function parseArgs(argv: string[]): CLIArgs {
@@ -63,9 +64,20 @@ function ask(question: string): Promise<string> {
   });
 }
 
+function cleanup() {
+  rl.close();
+}
+
+process.on('SIGINT', () => {
+  cleanup();
+  process.exit(0);
+});
+
 function isCliInvocation(): boolean {
   const arg = process.argv[1];
-  return !arg || arg.endsWith('/main.ts') || arg.endsWith('/main.js') || arg.endsWith('/skillskill');
+  return (
+    !arg || arg.endsWith('/main.ts') || arg.endsWith('/main.js') || arg.endsWith('/skillskill')
+  );
 }
 
 async function main() {
@@ -76,55 +88,19 @@ async function main() {
     const fileConfig = loadConfig();
     const config = resolveConfig(cli, fileConfig);
 
-    // Scan
-    const results = scanWithProfiles(config.profiles, config.exclude);
+    // Scan (--root overrides profile paths)
+    const results = scanWithProfiles(config.profiles, config.exclude, config.rootDir);
 
     if (results.length === 0) {
       console.log('No skill directories found.');
-      rl.close();
+      cleanup();
       process.exit(0);
     }
 
     // JSON output mode
     if (cli.json) {
-      const profiles: Record<string, { name: string; items: typeof jsonItems; totalSizeBytes: number; count: number }> = {};
-      let totalSizeBytes = 0;
-
-      for (const profile of config.profiles) {
-        const items = results.filter((r) => r.profileId.includes(profile.id));
-        const totalSize = items.reduce((sum, r) => sum + r.size, 0);
-        totalSizeBytes += totalSize;
-        profiles[profile.id] = {
-          name: profile.name,
-          items: items.map((r) => ({
-            path: r.path,
-            sizeBytes: r.size,
-            profileId: r.profileId,
-            modificationTime: new Date(r.modificationTime).toISOString(),
-          })),
-          totalSizeBytes: totalSize,
-          count: items.length,
-        };
-      }
-
-      interface JSONItem {
-        path: string;
-        sizeBytes: number;
-        profileId: string;
-        modificationTime: string;
-      }
-      const jsonItems: JSONItem[] = [];
-
-      const output = {
-        root: config.rootDir,
-        scanDate: new Date().toISOString(),
-        profiles,
-        totalItems: results.length,
-        totalSizeBytes,
-      };
-
-      console.log(JSON.stringify(output, null, 2));
-      rl.close();
+      printJSON(results, config.profiles, config.rootDir);
+      cleanup();
       process.exit(0);
     }
 
@@ -134,10 +110,11 @@ async function main() {
     // Handle --delete-all
     let selectedResults = results;
     if (config.deleteAll && !config.dryRun) {
+      printConfirmation(selectedResults);
       const confirm = await ask('Delete ALL items? Type yes to confirm: ');
       if (confirm !== 'yes') {
         console.log('Aborted.');
-        rl.close();
+        cleanup();
         process.exit(2);
       }
     } else if (!config.deleteAll) {
@@ -150,7 +127,7 @@ async function main() {
       const selection = parseSelection(selectionInput);
 
       if (selection.quit) {
-        rl.close();
+        cleanup();
         process.exit(0);
       }
 
@@ -162,25 +139,26 @@ async function main() {
           .map((i) => results[i - 1]);
       } else {
         console.log('No valid items selected.');
-        rl.close();
+        cleanup();
         process.exit(2);
       }
     }
 
     // Dry-run: print summary and exit
     if (config.dryRun) {
-      const totalSize = selectedResults.reduce((sum, r) => sum + r.size, 0);
-      console.log(`\nWould delete ${selectedResults.length} item(s) (${totalSize} bytes).`);
-      rl.close();
+      console.log(
+        `\nWould delete ${selectedResults.length} item(s) (${formatSize(totalSize(selectedResults))}).`
+      );
+      cleanup();
       process.exit(0);
     }
 
     // Confirmation
-    printConfirmation(selectedResults, results);
+    printConfirmation(selectedResults);
     const confirm = await ask('Proceed? [y/N] ');
     if (confirm.toLowerCase() !== 'y') {
       console.log('Aborted.');
-      rl.close();
+      cleanup();
       process.exit(2);
     }
 
@@ -201,11 +179,11 @@ async function main() {
     }
 
     printSummary(deleted, failed, freedBytes);
-    rl.close();
+    cleanup();
     process.exit(failed > 0 ? 1 : 0);
   } catch (err) {
     console.error('Error:', err);
-    rl.close();
+    cleanup();
     process.exit(1);
   }
 }

@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
-import { deleteDir, isProtected } from '../src/core/npkill.js';
+import { deleteDir, isProtected } from '../src/core/delete.js';
 
 let tmpDir: string;
 

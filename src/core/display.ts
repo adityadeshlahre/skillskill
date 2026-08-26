@@ -1,5 +1,6 @@
 import * as os from 'os';
-import { ScanResult } from './interfaces/config.interface.js';
+import { ScanResult, SkillProfile } from './interfaces/config.interface.js';
+import { totalSize } from './scan.js';
 
 export function formatSize(bytes: number): string {
   if (bytes >= 1073741824) return `${(bytes / 1073741824).toFixed(1)} GB`;
@@ -18,12 +19,11 @@ function truncatePath(p: string, maxWidth: number): string {
 function groupByProfile(results: ScanResult[]): Map<string, ScanResult[]> {
   const groups = new Map<string, ScanResult[]>();
   for (const r of results) {
-    const key = r.profileId.split(',')[0]; // use first profile for grouping
+    const key = r.profileId.split(',')[0];
     const group = groups.get(key) ?? [];
     group.push(r);
     groups.set(key, group);
   }
-  // Sort within each group: largest first
   for (const group of groups.values()) {
     group.sort((a, b) => b.size - a.size);
   }
@@ -32,7 +32,7 @@ function groupByProfile(results: ScanResult[]): Map<string, ScanResult[]> {
 
 export function printScanResults(results: ScanResult[], dryRun: boolean): void {
   const terminalWidth = process.stdout.columns ?? 80;
-  const pathWidth = terminalWidth - 12; // "NN.  SSS UNIT  " = ~12 chars
+  const pathWidth = terminalWidth - 12;
 
   const groups = groupByProfile(results);
   let globalIndex = 1;
@@ -52,9 +52,8 @@ export function printScanResults(results: ScanResult[], dryRun: boolean): void {
   console.log('');
 
   for (const [profileId, items] of groups) {
-    const totalSize = items.reduce((sum, r) => sum + r.size, 0);
     const name = profileNames[profileId] ?? profileId;
-    console.log(`=== ${name} (${items.length} items, ${formatSize(totalSize)}) ===`);
+    console.log(`=== ${name} (${items.length} items, ${formatSize(totalSize(items))}) ===`);
 
     for (const item of items) {
       const num = String(globalIndex).padStart(2, ' ');
@@ -66,18 +65,13 @@ export function printScanResults(results: ScanResult[], dryRun: boolean): void {
     console.log('');
   }
 
-  const totalItems = results.length;
-  const totalSize = results.reduce((sum, r) => sum + r.size, 0);
-  console.log(`Total: ${totalItems} items, ${formatSize(totalSize)}`);
+  console.log(`Total: ${results.length} items, ${formatSize(totalSize(results))}`);
   console.log('');
 }
 
-export function printConfirmation(
-  items: ScanResult[],
-  allResults: ScanResult[]
-): void {
-  const totalSize = items.reduce((sum, r) => sum + r.size, 0);
-  console.log(`Will delete ${items.length} item(s) (${formatSize(totalSize)}):`);
+export function printConfirmation(items: ScanResult[]): void {
+  const size = totalSize(items);
+  console.log(`Will delete ${items.length} item(s) (${formatSize(size)}):`);
   for (const item of items) {
     console.log(`  ${item.path} (${formatSize(item.size)})`);
   }
@@ -99,4 +93,47 @@ export function printSummary(deleted: number, failed: number, freedBytes: number
   } else {
     console.log(`Deleted ${deleted} items, freed ${formatSize(freedBytes)}.`);
   }
+}
+
+export function printJSON(results: ScanResult[], profiles: SkillProfile[], rootDir: string): void {
+  const profilesOutput: Record<
+    string,
+    {
+      name: string;
+      items: Array<{ path: string; sizeBytes: number; profileId: string }>;
+      totalSizeBytes: number;
+      count: number;
+    }
+  > = {};
+  let totalSizeBytes = 0;
+
+  for (const profile of profiles) {
+    const items = results.filter((r) => r.profileId.includes(profile.id));
+    const size = totalSize(items);
+    totalSizeBytes += size;
+    profilesOutput[profile.id] = {
+      name: profile.name,
+      items: items.map((r) => ({
+        path: r.path,
+        sizeBytes: r.size,
+        profileId: r.profileId,
+      })),
+      totalSizeBytes: size,
+      count: items.length,
+    };
+  }
+
+  console.log(
+    JSON.stringify(
+      {
+        root: rootDir,
+        scanDate: new Date().toISOString(),
+        profiles: profilesOutput,
+        totalItems: results.length,
+        totalSizeBytes,
+      },
+      null,
+      2
+    )
+  );
 }

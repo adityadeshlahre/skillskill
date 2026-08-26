@@ -1,4 +1,4 @@
-export * from './npkill.js';
+export * from './delete.js';
 export * from './config.js';
 export * from './constants.js';
 export * from './scan.js';

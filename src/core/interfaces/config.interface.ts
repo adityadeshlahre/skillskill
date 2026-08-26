@@ -1,11 +1,13 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as os from 'os';
-
 export interface SkillProfile {
   id: string;
   name: string;
   paths: string[];
+  exclude?: string[];
+}
+
+export interface ProfileOverride {
+  id: string;
+  paths?: string[];
   exclude?: string[];
 }
 
@@ -14,11 +16,7 @@ export interface UserConfig {
   exclude?: string[];
   dryRun?: boolean;
   disableProfiles?: string[];
-  profiles?: Array<{
-    id: string;
-    paths?: string[];
-    exclude?: string[];
-  }>;
+  profiles?: ProfileOverride[];
   addProfiles?: SkillProfile[];
 }
 
@@ -45,7 +43,6 @@ export interface ScanResult {
   path: string;
   size: number;
   profileId: string;
-  modificationTime: number;
 }
 
 export interface DeleteResult {
@@ -53,25 +50,4 @@ export interface DeleteResult {
   path: string;
   error?: string;
   dryRun?: boolean;
-}
-
-export interface JSONOutput {
-  root: string;
-  scanDate: string;
-  profiles: Record<
-    string,
-    {
-      name: string;
-      items: Array<{
-        path: string;
-        sizeBytes: number;
-        profileId: string;
-        modificationTime: string;
-      }>;
-      totalSizeBytes: number;
-      count: number;
-    }
-  >;
-  totalItems: number;
-  totalSizeBytes: number;
 }

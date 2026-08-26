@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { SkillProfile, ScanResult } from './interfaces/config.interface.js';
 import { expandHome } from './config.js';
+import { isProtected } from './delete.js';
 
 export function getFolderSize(dirPath: string): number {
   let total = 0;
@@ -25,36 +26,33 @@ export function getFolderSize(dirPath: string): number {
   return total;
 }
 
+export function totalSize(results: ScanResult[]): number {
+  return results.reduce((sum, r) => sum + r.size, 0);
+}
+
 export function scanWithProfiles(
   profiles: SkillProfile[],
-  globalExclude: string[] = []
+  globalExclude: string[] = [],
+  rootOverride?: string
 ): ScanResult[] {
   const results: ScanResult[] = [];
 
   for (const profile of profiles) {
-    for (const rawPath of profile.paths) {
+    const paths = rootOverride ? [rootOverride] : profile.paths;
+    for (const rawPath of paths) {
       const root = expandHome(rawPath);
+      if (isProtected(root)) continue;
       const hits = listDir(root, {
         exclude: [...globalExclude, ...(profile.exclude ?? [])],
       });
       for (const hit of hits) {
+        const size = getFolderSize(hit);
         results.push({
           path: hit,
-          size: 0,
+          size,
           profileId: profile.id,
-          modificationTime: 0,
         });
       }
-    }
-  }
-
-  // Calculate sizes
-  for (const result of results) {
-    result.size = getFolderSize(result.path);
-    try {
-      result.modificationTime = fs.statSync(result.path).mtimeMs;
-    } catch {
-      result.modificationTime = 0;
     }
   }
 
@@ -63,7 +61,6 @@ export function scanWithProfiles(
   for (const result of results) {
     const existing = seen.get(result.path);
     if (existing) {
-      // Keep the first profileId, merge if different
       if (existing.profileId !== result.profileId) {
         existing.profileId = `${existing.profileId},${result.profileId}`;
       }
@@ -75,12 +72,8 @@ export function scanWithProfiles(
   return [...seen.values()];
 }
 
-function listDir(
-  dirPath: string,
-  options: { exclude: string[] }
-): string[] {
+function listDir(dirPath: string, options: { exclude: string[] }): string[] {
   const results: string[] = [];
-  // Include the root directory itself if it exists
   try {
     fs.statSync(dirPath);
     if (!options.exclude.some((pat) => dirPath.includes(pat))) {
@@ -89,7 +82,6 @@ function listDir(
   } catch {
     return results;
   }
-  // Then walk subdirectories
   try {
     const entries = fs.readdirSync(dirPath, { withFileTypes: true });
     for (const entry of entries) {

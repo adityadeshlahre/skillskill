@@ -56,3 +56,6 @@ out/
 /.cache/
 # End of https://github.com/github/gitignore
 tsconfig.tsbuildinfo
+docs/agents
+.scratch
+AGENTS.md
