@@ -11,6 +11,7 @@ import {
   printConfirmation,
   printDeletionProgress,
   printSummary,
+  formatSize,
 } from './core/display.js';
 
 function parseArgs(argv: string[]): CLIArgs {
@@ -80,6 +81,49 @@ async function main() {
 
     if (results.length === 0) {
       console.log('No skill directories found.');
+      rl.close();
+      process.exit(0);
+    }
+
+    // JSON output mode
+    if (cli.json) {
+      const profiles: Record<string, { name: string; items: typeof jsonItems; totalSizeBytes: number; count: number }> = {};
+      let totalSizeBytes = 0;
+
+      for (const profile of config.profiles) {
+        const items = results.filter((r) => r.profileId.includes(profile.id));
+        const totalSize = items.reduce((sum, r) => sum + r.size, 0);
+        totalSizeBytes += totalSize;
+        profiles[profile.id] = {
+          name: profile.name,
+          items: items.map((r) => ({
+            path: r.path,
+            sizeBytes: r.size,
+            profileId: r.profileId,
+            modificationTime: new Date(r.modificationTime).toISOString(),
+          })),
+          totalSizeBytes: totalSize,
+          count: items.length,
+        };
+      }
+
+      interface JSONItem {
+        path: string;
+        sizeBytes: number;
+        profileId: string;
+        modificationTime: string;
+      }
+      const jsonItems: JSONItem[] = [];
+
+      const output = {
+        root: config.rootDir,
+        scanDate: new Date().toISOString(),
+        profiles,
+        totalItems: results.length,
+        totalSizeBytes,
+      };
+
+      console.log(JSON.stringify(output, null, 2));
       rl.close();
       process.exit(0);
     }
