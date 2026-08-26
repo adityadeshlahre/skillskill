@@ -33,6 +33,7 @@ export interface CLIArgs {
 
 export interface ResolvedConfig {
   rootDir: string;
+  explicitRoot: boolean;
   dryRun: boolean;
   deleteAll: boolean;
   exclude: string[];

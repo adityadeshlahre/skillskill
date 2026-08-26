@@ -2,7 +2,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { SkillProfile, ScanResult } from './interfaces/config.interface.js';
 import { expandHome } from './config.js';
-import { isProtected } from './delete.js';
 
 export function getFolderSize(dirPath: string): number {
   let total = 0;
@@ -41,7 +40,6 @@ export function scanWithProfiles(
     const paths = rootOverride ? [rootOverride] : profile.paths;
     for (const rawPath of paths) {
       const root = expandHome(rawPath);
-      if (isProtected(root)) continue;
       const hits = listDir(root, {
         exclude: [...globalExclude, ...(profile.exclude ?? [])],
       });

@@ -76,6 +76,7 @@ export function resolveProfiles(fileConfig: UserConfig, cli: CLIArgs): SkillProf
 export function resolveConfig(cli: CLIArgs, fileConfig: UserConfig): ResolvedConfig {
   return {
     rootDir: cli.root ?? fileConfig.rootDir ?? os.homedir(),
+    explicitRoot: cli.root !== undefined || fileConfig.rootDir !== undefined,
     dryRun: cli.json ? true : (cli.dryRun ?? fileConfig.dryRun ?? true),
     deleteAll: cli.deleteAll ?? false,
     exclude: [...(fileConfig.exclude ?? []), ...(cli.exclude ?? [])],

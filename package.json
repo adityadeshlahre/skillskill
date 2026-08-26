@@ -29,6 +29,7 @@
     "url": "git+https://github.com/adityadeshlahre/skillskill.git"
   },
   "license": "MIT",
+  "type": "module",
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js"
@@ -43,7 +44,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
-    "start": "node -r tsconfig-paths/register --loader ts-node/esm --no-warnings ./src/index.ts",
+    "start": "node dist/main.js",
     "test": "vitest",
     "publish": "npm run build && npm publish",
     "prepublish": "npm run build",

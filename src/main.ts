@@ -89,7 +89,7 @@ async function main() {
     const config = resolveConfig(cli, fileConfig);
 
     // Scan (--root overrides profile paths)
-    const results = scanWithProfiles(config.profiles, config.exclude, config.rootDir);
+    const results = scanWithProfiles(config.profiles, config.exclude, config.explicitRoot ? config.rootDir : undefined);
 
     if (results.length === 0) {
       console.log('No skill directories found.');
