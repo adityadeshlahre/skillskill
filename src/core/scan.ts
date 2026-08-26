@@ -74,22 +74,16 @@ function listDir(dirPath: string, options: { exclude: string[] }): string[] {
   const results: string[] = [];
   try {
     fs.statSync(dirPath);
-    if (!options.exclude.some((pat) => dirPath.includes(pat))) {
-      results.push(dirPath);
-    }
   } catch {
     return results;
   }
   try {
     const entries = fs.readdirSync(dirPath, { withFileTypes: true });
     for (const entry of entries) {
+      if (!entry.isDirectory()) continue;
       const fullPath = path.join(dirPath, entry.name);
-      if (options.exclude.some((pat) => fullPath.includes(pat))) {
-        continue;
-      }
-      if (entry.isDirectory()) {
-        results.push(...listDir(fullPath, options));
-      }
+      if (options.exclude.some((pat) => fullPath.includes(pat))) continue;
+      results.push(fullPath);
     }
   } catch {
     // skip unreadable directories

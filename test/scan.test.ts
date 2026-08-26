@@ -43,15 +43,15 @@ describe('getFolderSize', () => {
 });
 
 describe('scanWithProfiles', () => {
-  it('scans profile directories and returns results', () => {
-    const skillDir = path.join(tmpDir, 'skills');
+  it('scans immediate children of profile paths', () => {
+    const skillDir = path.join(tmpDir, 'my-skill');
     fs.mkdirSync(skillDir);
     fs.writeFileSync(path.join(skillDir, 'file.txt'), 'data');
 
     const profile: SkillProfile = {
       id: 'test',
       name: 'Test',
-      paths: [skillDir],
+      paths: [tmpDir],
     };
 
     const results = scanWithProfiles([profile]);
@@ -73,9 +73,8 @@ describe('scanWithProfiles', () => {
   });
 
   it('excludes paths matching exclude patterns', () => {
-    const subDir = path.join(tmpDir, 'skills');
-    fs.mkdirSync(subDir);
-    fs.mkdirSync(path.join(subDir, 'node_modules'));
+    fs.mkdirSync(path.join(tmpDir, 'skill-a'));
+    fs.mkdirSync(path.join(tmpDir, 'node_modules'));
 
     const profile: SkillProfile = {
       id: 'test',
@@ -90,8 +89,7 @@ describe('scanWithProfiles', () => {
   });
 
   it('applies global exclude', () => {
-    const subDir = path.join(tmpDir, 'skills');
-    fs.mkdirSync(subDir);
+    fs.mkdirSync(path.join(tmpDir, 'skill-a'));
 
     const profile: SkillProfile = {
       id: 'test',
@@ -99,17 +97,17 @@ describe('scanWithProfiles', () => {
       paths: [tmpDir],
     };
 
-    const results = scanWithProfiles([profile], ['skills']);
+    const results = scanWithProfiles([profile], ['skill']);
     expect(results).toHaveLength(0);
   });
 
   it('deduplicates by path', () => {
-    const skillDir = path.join(tmpDir, 'shared');
-    fs.mkdirSync(skillDir);
+    const sharedDir = path.join(tmpDir, 'shared');
+    fs.mkdirSync(sharedDir);
 
     const profiles: SkillProfile[] = [
-      { id: 'a', name: 'A', paths: [skillDir] },
-      { id: 'b', name: 'B', paths: [skillDir] },
+      { id: 'a', name: 'A', paths: [tmpDir] },
+      { id: 'b', name: 'B', paths: [tmpDir] },
     ];
 
     const results = scanWithProfiles(profiles);

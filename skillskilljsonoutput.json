@@ -1,0 +1,1896 @@
+
+> skillskill@0.0.1 start
+> node dist/main.js --json
+
+{
+  "root": "/Users/mumbo",
+  "scanDate": "2026-08-26T20:05:43.305Z",
+  "profiles": {
+    "opencode": {
+      "name": "OpenCode",
+      "items": [
+        {
+          "path": "/Users/mumbo/.agents/skills",
+          "sizeBytes": 260729,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/ask-matt",
+          "sizeBytes": 15803,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/ask-matt/agents",
+          "sizeBytes": 137,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/claude-handoff",
+          "sizeBytes": 1442,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/claude-handoff/agents",
+          "sizeBytes": 141,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/code-review",
+          "sizeBytes": 6689,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/code-review/agents",
+          "sizeBytes": 100,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/codebase-design",
+          "sizeBytes": 11765,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/codebase-design/agents",
+          "sizeBytes": 102,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/diagnosing-bugs",
+          "sizeBytes": 9948,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/diagnosing-bugs/agents",
+          "sizeBytes": 103,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/diagnosing-bugs/scripts",
+          "sizeBytes": 1316,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/domain-modeling",
+          "sizeBytes": 8455,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/domain-modeling/agents",
+          "sizeBytes": 101,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/find-skills",
+          "sizeBytes": 5472,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/git-guardrails-claude-code",
+          "sizeBytes": 2932,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/git-guardrails-claude-code/agents",
+          "sizeBytes": 112,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/git-guardrails-claude-code/scripts",
+          "sizeBytes": 507,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/grill-me",
+          "sizeBytes": 294,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/grill-me/agents",
+          "sizeBytes": 137,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/grill-with-docs",
+          "sizeBytes": 392,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/grill-with-docs/agents",
+          "sizeBytes": 145,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/grilling",
+          "sizeBytes": 2100,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/grilling/agents",
+          "sizeBytes": 113,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/handoff",
+          "sizeBytes": 1035,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/handoff/agents",
+          "sizeBytes": 141,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/implement",
+          "sizeBytes": 572,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/implement/agents",
+          "sizeBytes": 139,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/implement-spec",
+          "sizeBytes": 2180,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/implement-spec/agents",
+          "sizeBytes": 143,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/improve-codebase-architecture",
+          "sizeBytes": 12800,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/improve-codebase-architecture/agents",
+          "sizeBytes": 166,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/loop-me",
+          "sizeBytes": 2662,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/loop-me/agents",
+          "sizeBytes": 140,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/migrate-to-shoehorn",
+          "sizeBytes": 2905,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/migrate-to-shoehorn/agents",
+          "sizeBytes": 110,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/prototype",
+          "sizeBytes": 15980,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/prototype/agents",
+          "sizeBytes": 100,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/research",
+          "sizeBytes": 888,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/research/agents",
+          "sizeBytes": 94,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/resolving-merge-conflicts",
+          "sizeBytes": 1031,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/resolving-merge-conflicts/agents",
+          "sizeBytes": 113,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/scaffold-exercises",
+          "sizeBytes": 3697,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/scaffold-exercises/agents",
+          "sizeBytes": 108,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/setup-matt-pocock-skills",
+          "sizeBytes": 19421,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/setup-matt-pocock-skills/agents",
+          "sizeBytes": 152,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/setup-pre-commit",
+          "sizeBytes": 2357,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/setup-pre-commit/agents",
+          "sizeBytes": 99,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/setup-ts-deep-modules",
+          "sizeBytes": 11407,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/setup-ts-deep-modules/agents",
+          "sizeBytes": 149,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/tdd",
+          "sizeBytes": 7331,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/tdd/agents",
+          "sizeBytes": 87,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/teach",
+          "sizeBytes": 17839,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/to-questionnaire",
+          "sizeBytes": 3070,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/to-questionnaire/agents",
+          "sizeBytes": 166,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/to-spec",
+          "sizeBytes": 3178,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/to-spec/agents",
+          "sizeBytes": 135,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/to-tickets",
+          "sizeBytes": 5817,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/to-tickets/agents",
+          "sizeBytes": 146,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/triage",
+          "sizeBytes": 19301,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/triage/agents",
+          "sizeBytes": 135,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/wait-what",
+          "sizeBytes": 552,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/wait-what/agents",
+          "sizeBytes": 158,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/wayfinder",
+          "sizeBytes": 12052,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/wayfinder/agents",
+          "sizeBytes": 144,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/web-perf",
+          "sizeBytes": 8198,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/wizard",
+          "sizeBytes": 12786,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/wizard/agents",
+          "sizeBytes": 96,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/writing-beats",
+          "sizeBytes": 4997,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/writing-beats/agents",
+          "sizeBytes": 142,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/writing-for-agents",
+          "sizeBytes": 13617,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/writing-for-agents/agents",
+          "sizeBytes": 102,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/writing-fragments",
+          "sizeBytes": 3698,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/writing-fragments/agents",
+          "sizeBytes": 140,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/writing-shape",
+          "sizeBytes": 6066,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.agents/skills/writing-shape/agents",
+          "sizeBytes": 144,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills",
+          "sizeBytes": 1854651,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/autoplan",
+          "sizeBytes": 149896,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/codex",
+          "sizeBytes": 124149,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/customloop",
+          "sizeBytes": 8855,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/design-review",
+          "sizeBytes": 104943,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/devex-review",
+          "sizeBytes": 82459,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/investigate",
+          "sizeBytes": 71257,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/office-hours",
+          "sizeBytes": 189230,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/office-hours/sections",
+          "sizeBytes": 61391,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/plan-ceo-review",
+          "sizeBytes": 216274,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/plan-ceo-review/sections",
+          "sizeBytes": 97625,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/plan-design-review",
+          "sizeBytes": 156001,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/plan-design-review/sections",
+          "sizeBytes": 52348,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/plan-devex-review",
+          "sizeBytes": 169142,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/plan-devex-review/sections",
+          "sizeBytes": 64042,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/plan-eng-review",
+          "sizeBytes": 151578,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/plan-eng-review/sections",
+          "sizeBytes": 73363,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/plan-tune",
+          "sizeBytes": 99264,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/review",
+          "sizeBytes": 165209,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/review/specialists",
+          "sizeBytes": 17115,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/spec",
+          "sizeBytes": 158196,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.config/opencode/skills/web-perf",
+          "sizeBytes": 8198,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages",
+          "sizeBytes": 57375888,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert",
+          "sizeBytes": 1935786,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail",
+          "sizeBytes": 967886,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules",
+          "sizeBytes": 967305,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert",
+          "sizeBytes": 966885,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail",
+          "sizeBytes": 966885,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/.opencode",
+          "sizeBytes": 8099,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/.opencode/command",
+          "sizeBytes": 4223,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/.opencode/plugins",
+          "sizeBytes": 3876,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/assets",
+          "sizeBytes": 854984,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/hooks",
+          "sizeBytes": 20292,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/pi-extension",
+          "sizeBytes": 16412,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/pi-extension/test",
+          "sizeBytes": 10104,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/skills",
+          "sizeBytes": 16783,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/skills/ponytail",
+          "sizeBytes": 6482,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/skills/ponytail-audit",
+          "sizeBytes": 1652,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/skills/ponytail-debt",
+          "sizeBytes": 1703,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/skills/ponytail-gain",
+          "sizeBytes": 1973,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/skills/ponytail-help",
+          "sizeBytes": 2590,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail/node_modules/@dietrichgebert/ponytail/skills/ponytail-review",
+          "sizeBytes": 2383,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest",
+          "sizeBytes": 967900,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules",
+          "sizeBytes": 967312,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert",
+          "sizeBytes": 966885,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail",
+          "sizeBytes": 966885,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/.opencode",
+          "sizeBytes": 8099,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/.opencode/command",
+          "sizeBytes": 4223,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/.opencode/plugins",
+          "sizeBytes": 3876,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/assets",
+          "sizeBytes": 854984,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/hooks",
+          "sizeBytes": 20292,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/pi-extension",
+          "sizeBytes": 16412,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/pi-extension/test",
+          "sizeBytes": 10104,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/skills",
+          "sizeBytes": 16783,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/skills/ponytail",
+          "sizeBytes": 6482,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/skills/ponytail-audit",
+          "sizeBytes": 1652,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/skills/ponytail-debt",
+          "sizeBytes": 1703,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/skills/ponytail-gain",
+          "sizeBytes": 1973,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/skills/ponytail-help",
+          "sizeBytes": 2590,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/@dietrichgebert/ponytail@latest/node_modules/@dietrichgebert/ponytail/skills/ponytail-review",
+          "sizeBytes": 2383,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4",
+          "sizeBytes": 55440102,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules",
+          "sizeBytes": 55424428,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/.bin",
+          "sizeBytes": 7613,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@msgpackr-extract",
+          "sizeBytes": 53604,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@msgpackr-extract/msgpackr-extract-darwin-arm64",
+          "sizeBytes": 53604,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai",
+          "sizeBytes": 751850,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai/plugin",
+          "sizeBytes": 35053,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai/plugin/dist",
+          "sizeBytes": 33810,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai/sdk",
+          "sizeBytes": 716797,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai/sdk/dist",
+          "sizeBytes": 715483,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai/sdk/dist/gen",
+          "sizeBytes": 178997,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai/sdk/dist/gen/client",
+          "sizeBytes": 23370,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai/sdk/dist/gen/core",
+          "sizeBytes": 29495,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai/sdk/dist/v2",
+          "sizeBytes": 525669,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai/sdk/dist/v2/gen",
+          "sizeBytes": 516988,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai/sdk/dist/v2/gen/client",
+          "sizeBytes": 25039,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@opencode-ai/sdk/dist/v2/gen/core",
+          "sizeBytes": 32608,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@standard-schema",
+          "sizeBytes": 22634,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@standard-schema/spec",
+          "sizeBytes": 22634,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/@standard-schema/spec/dist",
+          "sizeBytes": 12866,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/cross-spawn",
+          "sizeBytes": 16094,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/cross-spawn/lib",
+          "sizeBytes": 8025,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/cross-spawn/lib/util",
+          "sizeBytes": 3489,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/detect-libc",
+          "sizeBytes": 26437,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/detect-libc/lib",
+          "sizeBytes": 10151,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect",
+          "sizeBytes": 44557274,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist",
+          "sizeBytes": 27149309,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/internal",
+          "sizeBytes": 619383,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/internal/schema",
+          "sizeBytes": 94565,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/testing",
+          "sizeBytes": 101615,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable",
+          "sizeBytes": 12524543,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/ai",
+          "sizeBytes": 1213675,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/ai/internal",
+          "sizeBytes": 1506,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/cli",
+          "sizeBytes": 916499,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/cli/internal",
+          "sizeBytes": 159927,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/cli/internal/completions",
+          "sizeBytes": 51478,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/cluster",
+          "sizeBytes": 954383,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/cluster/internal",
+          "sizeBytes": 59189,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/devtools",
+          "sizeBytes": 73386,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/encoding",
+          "sizeBytes": 93949,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/eventlog",
+          "sizeBytes": 466308,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/eventlog/internal",
+          "sizeBytes": 9223,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/http",
+          "sizeBytes": 1017670,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/http/Multipasta",
+          "sizeBytes": 2660,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/http/internal",
+          "sizeBytes": 1557,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/httpapi",
+          "sizeBytes": 5680098,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/httpapi/internal",
+          "sizeBytes": 5236694,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/observability",
+          "sizeBytes": 218149,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/observability/internal",
+          "sizeBytes": 43447,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/persistence",
+          "sizeBytes": 277549,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/process",
+          "sizeBytes": 78898,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/reactivity",
+          "sizeBytes": 450205,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/rpc",
+          "sizeBytes": 389689,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/schema",
+          "sizeBytes": 91252,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/socket",
+          "sizeBytes": 73616,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/sql",
+          "sizeBytes": 256165,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/workers",
+          "sizeBytes": 52838,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/workflow",
+          "sizeBytes": 220214,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/dist/unstable/workflow/internal",
+          "sizeBytes": 1480,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src",
+          "sizeBytes": 17400993,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/internal",
+          "sizeBytes": 430493,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/internal/schema",
+          "sizeBytes": 46748,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/testing",
+          "sizeBytes": 53290,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable",
+          "sizeBytes": 8948603,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/ai",
+          "sizeBytes": 585288,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/ai/internal",
+          "sizeBytes": 511,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/cli",
+          "sizeBytes": 539176,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/cli/internal",
+          "sizeBytes": 89821,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/cli/internal/completions",
+          "sizeBytes": 26877,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/cluster",
+          "sizeBytes": 460810,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/cluster/internal",
+          "sizeBytes": 34221,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/devtools",
+          "sizeBytes": 28572,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/encoding",
+          "sizeBytes": 48003,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/eventlog",
+          "sizeBytes": 226902,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/eventlog/internal",
+          "sizeBytes": 4561,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/http",
+          "sizeBytes": 505996,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/http/Multipasta",
+          "sizeBytes": 430,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/http/internal",
+          "sizeBytes": 688,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/httpapi",
+          "sizeBytes": 5457976,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/httpapi/internal",
+          "sizeBytes": 5234797,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/observability",
+          "sizeBytes": 117489,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/observability/internal",
+          "sizeBytes": 28065,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/persistence",
+          "sizeBytes": 144941,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/process",
+          "sizeBytes": 49740,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/reactivity",
+          "sizeBytes": 237932,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/rpc",
+          "sizeBytes": 203066,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/schema",
+          "sizeBytes": 41760,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/socket",
+          "sizeBytes": 33099,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/sql",
+          "sizeBytes": 128922,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/workers",
+          "sizeBytes": 24089,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/workflow",
+          "sizeBytes": 114842,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/effect/src/unstable/workflow/internal",
+          "sizeBytes": 446,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/fast-check",
+          "sizeBytes": 1408084,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/fast-check/lib",
+          "sizeBytes": 1362619,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/fast-check/lib/cjs",
+          "sizeBytes": 682763,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/fast-check/lib/cjs/types57",
+          "sizeBytes": 157965,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/fast-check/lib/types57",
+          "sizeBytes": 157965,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/find-my-way-ts",
+          "sizeBytes": 164588,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/find-my-way-ts/QueryString",
+          "sizeBytes": 149,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/find-my-way-ts/dist",
+          "sizeBytes": 129229,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/find-my-way-ts/dist/cjs",
+          "sizeBytes": 65486,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/find-my-way-ts/dist/cjs/internal",
+          "sizeBytes": 47002,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/find-my-way-ts/dist/dts",
+          "sizeBytes": 3107,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/find-my-way-ts/dist/dts/internal",
+          "sizeBytes": 327,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/find-my-way-ts/dist/esm",
+          "sizeBytes": 60636,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/find-my-way-ts/dist/esm/internal",
+          "sizeBytes": 44479,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/find-my-way-ts/src",
+          "sizeBytes": 32924,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/find-my-way-ts/src/internal",
+          "sizeBytes": 24053,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/ini",
+          "sizeBytes": 12140,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/ini/lib",
+          "sizeBytes": 7123,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/isexe",
+          "sizeBytes": 10956,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/isexe/test",
+          "sizeBytes": 4996,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types",
+          "sizeBytes": 779214,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/admissionregistration",
+          "sizeBytes": 116554,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/api",
+          "sizeBytes": 2531,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/apiextensions",
+          "sizeBytes": 31515,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/apiserverinternal",
+          "sizeBytes": 4426,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/apps",
+          "sizeBytes": 37230,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/authentication",
+          "sizeBytes": 11353,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/authorization",
+          "sizeBytes": 12661,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/autoscaling",
+          "sizeBytes": 27608,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/batch",
+          "sizeBytes": 29105,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/certificates",
+          "sizeBytes": 16140,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/coordination",
+          "sizeBytes": 2832,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/core",
+          "sizeBytes": 263941,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/discovery",
+          "sizeBytes": 8306,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/events",
+          "sizeBytes": 5531,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/flowcontrol",
+          "sizeBytes": 44498,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/meta",
+          "sizeBytes": 32919,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/networking",
+          "sizeBytes": 32077,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/node",
+          "sizeBytes": 4563,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/policy",
+          "sizeBytes": 8513,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/rbac",
+          "sizeBytes": 11709,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/resource",
+          "sizeBytes": 32371,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/scheduling",
+          "sizeBytes": 3044,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/storage",
+          "sizeBytes": 32532,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/kubernetes-types/storagemigration",
+          "sizeBytes": 4093,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/msgpackr",
+          "sizeBytes": 1887190,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/msgpackr/dist",
+          "sizeBytes": 1748590,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/msgpackr-extract",
+          "sizeBytes": 15646,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/msgpackr-extract/bin",
+          "sizeBytes": 336,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/msgpackr-extract/src",
+          "sizeBytes": 9148,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/multipasta",
+          "sizeBytes": 178382,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/multipasta/dist",
+          "sizeBytes": 144292,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/multipasta/dist/cjs",
+          "sizeBytes": 71104,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/multipasta/dist/cjs/internal",
+          "sizeBytes": 48785,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/multipasta/dist/dts",
+          "sizeBytes": 14622,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/multipasta/dist/dts/internal",
+          "sizeBytes": 2389,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/multipasta/dist/esm",
+          "sizeBytes": 58566,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/multipasta/dist/esm/internal",
+          "sizeBytes": 46440,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/multipasta/src",
+          "sizeBytes": 31514,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/multipasta/src/internal",
+          "sizeBytes": 21766,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/node-gyp-build-optional-packages",
+          "sizeBytes": 14806,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/opencode-chrome-devtools",
+          "sizeBytes": 433061,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/opencode-chrome-devtools/.opencode",
+          "sizeBytes": 1796,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/opencode-chrome-devtools/.opencode/skill",
+          "sizeBytes": 1796,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/opencode-chrome-devtools/.opencode/skill/browser-automation",
+          "sizeBytes": 1796,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/opencode-chrome-devtools/bin",
+          "sizeBytes": 4082,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/opencode-chrome-devtools/dist",
+          "sizeBytes": 422669,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/path-key",
+          "sizeBytes": 4553,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/pure-rand",
+          "sizeBytes": 62403,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/pure-rand/lib",
+          "sizeBytes": 47473,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/pure-rand/lib/distribution",
+          "sizeBytes": 8598,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/pure-rand/lib/esm",
+          "sizeBytes": 23218,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/pure-rand/lib/esm/distribution",
+          "sizeBytes": 8255,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/pure-rand/lib/esm/generator",
+          "sizeBytes": 12075,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/pure-rand/lib/esm/types",
+          "sizeBytes": 681,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/pure-rand/lib/esm/utils",
+          "sizeBytes": 1697,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/pure-rand/lib/generator",
+          "sizeBytes": 12553,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/pure-rand/lib/types",
+          "sizeBytes": 681,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/pure-rand/lib/utils",
+          "sizeBytes": 1936,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/shebang-command",
+          "sizeBytes": 2556,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/shebang-regex",
+          "sizeBytes": 2828,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/toml",
+          "sizeBytes": 123966,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/toml/lib",
+          "sizeBytes": 117998,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/uuid",
+          "sizeBytes": 70265,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/uuid/dist",
+          "sizeBytes": 28603,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/uuid/dist-node",
+          "sizeBytes": 15798,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/uuid/dist-node/bin",
+          "sizeBytes": 45,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/which",
+          "sizeBytes": 9975,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/which/bin",
+          "sizeBytes": 985,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/ws",
+          "sizeBytes": 151087,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/ws/lib",
+          "sizeBytes": 131319,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml",
+          "sizeBytes": 685953,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser",
+          "sizeBytes": 280320,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser/dist",
+          "sizeBytes": 280106,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser/dist/compose",
+          "sizeBytes": 60761,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser/dist/doc",
+          "sizeBytes": 26351,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser/dist/nodes",
+          "sizeBytes": 25694,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser/dist/parse",
+          "sizeBytes": 78812,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser/dist/schema",
+          "sizeBytes": 33953,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser/dist/schema/common",
+          "sizeBytes": 1734,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser/dist/schema/core",
+          "sizeBytes": 3810,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser/dist/schema/json",
+          "sizeBytes": 1867,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser/dist/schema/yaml-1.1",
+          "sizeBytes": 22085,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/browser/dist/stringify",
+          "sizeBytes": 37680,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/dist",
+          "sizeBytes": 394985,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/dist/compose",
+          "sizeBytes": 71983,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/dist/doc",
+          "sizeBytes": 37340,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/dist/nodes",
+          "sizeBytes": 43613,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/dist/parse",
+          "sizeBytes": 95321,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/dist/schema",
+          "sizeBytes": 49273,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/dist/schema/common",
+          "sizeBytes": 2260,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/dist/schema/core",
+          "sizeBytes": 4593,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/dist/schema/json",
+          "sizeBytes": 2018,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/dist/schema/yaml-1.1",
+          "sizeBytes": 27645,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/yaml/dist/stringify",
+          "sizeBytes": 42762,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod",
+          "sizeBytes": 3958238,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/locales",
+          "sizeBytes": 1041,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/mini",
+          "sizeBytes": 1029,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src",
+          "sizeBytes": 1897881,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/locales",
+          "sizeBytes": 40,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/mini",
+          "sizeBytes": 37,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v3",
+          "sizeBytes": 488578,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v3/benchmarks",
+          "sizeBytes": 15952,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v3/helpers",
+          "sizeBytes": 13651,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v3/locales",
+          "sizeBytes": 5134,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v3/tests",
+          "sizeBytes": 281235,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v4",
+          "sizeBytes": 1409068,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v4/classic",
+          "sizeBytes": 684748,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v4/classic/tests",
+          "sizeBytes": 591778,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v4/core",
+          "sizeBytes": 355334,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v4/core/tests",
+          "sizeBytes": 20214,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v4/core/tests/locales",
+          "sizeBytes": 18616,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v4/locales",
+          "sizeBytes": 221309,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v4/mini",
+          "sizeBytes": 147584,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v4/mini/tests",
+          "sizeBytes": 87782,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/src/v4-mini",
+          "sizeBytes": 37,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/v3",
+          "sizeBytes": 452996,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/v3/helpers",
+          "sizeBytes": 33292,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/v3/locales",
+          "sizeBytes": 11828,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/v4",
+          "sizeBytes": 1591262,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/v4/classic",
+          "sizeBytes": 217786,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/v4/core",
+          "sizeBytes": 680368,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/v4/locales",
+          "sizeBytes": 547882,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/v4/mini",
+          "sizeBytes": 143787,
+          "profileId": "opencode"
+        },
+        {
+          "path": "/Users/mumbo/.cache/opencode/packages/opencode-chrome-devtools@1.0.4/node_modules/zod/v4-mini",
+          "sizeBytes": 1029,
+          "profileId": "opencode"
+        }
+      ],
+      "totalSizeBytes": 360750632,
+      "count": 373
+    },
+    "claude": {
+      "name": "Claude Code",
+      "items": [],
+      "totalSizeBytes": 0,
+      "count": 0
+    },
+    "cursor": {
+      "name": "Cursor",
+      "items": [],
+      "totalSizeBytes": 0,
+      "count": 0
+    }
+  },
+  "totalItems": 373,
+  "totalSizeBytes": 360750632
+}
