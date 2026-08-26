@@ -1,3 +1,7 @@
+import checkbox from '@inquirer/checkbox';
+import { ScanResult } from './interfaces/config.interface.js';
+import { formatSize, truncatePath } from './display.js';
+
 export interface SelectionResult {
   indices: Set<number>;
   quit: boolean;
@@ -47,4 +51,29 @@ export function parseSelection(input: string): SelectionResult {
     quit,
     all,
   };
+}
+
+export async function promptSelection(results: ScanResult[]): Promise<Set<number>> {
+  const cols = process.stdout.columns ?? 80;
+  const pathWidth = cols - 20;
+
+  const choices = results.map((r, i) => {
+    const num = String(i + 1).padStart(2, ' ');
+    const size = formatSize(r.size).padStart(6, ' ');
+    const displayPath = truncatePath(r.path, pathWidth);
+    return {
+      name: `${num}. ${size}  ${displayPath}`,
+      value: i + 1,
+      checked: false,
+    };
+  });
+
+  const selected = await checkbox({
+    message: 'Select items to delete:',
+    choices,
+    pageSize: Math.min(choices.length, (process.stdout.rows ?? 24) - 4),
+    loop: false,
+  });
+
+  return new Set(selected);
 }

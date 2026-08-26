@@ -54,6 +54,7 @@
     "skillskill": "dist/main.js"
   },
   "dependencies": {
+    "@inquirer/checkbox": "^5.2.2",
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
