@@ -1,78 +1,169 @@
 #!/usr/bin/env node
 
 import * as readline from 'readline';
-import { Npkill } from './core/npkill.js';
-import { LoggerService } from './core/services/logger.service.js';
-import { ScanStatus } from './core/interfaces/search-status.model.js';
+import { CLIArgs } from './core/interfaces/config.interface.js';
+import { loadConfig, resolveConfig } from './core/config.js';
+import { scanWithProfiles } from './core/scan.js';
+import { parseSelection } from './core/selection.js';
+import { deleteDir } from './core/npkill.js';
+import {
+  printScanResults,
+  printConfirmation,
+  printDeletionProgress,
+  printSummary,
+} from './core/display.js';
+
+function parseArgs(argv: string[]): CLIArgs {
+  const args = argv.slice(2);
+  const cli: CLIArgs = {};
+
+  for (let i = 0; i < args.length; i++) {
+    switch (args[i]) {
+      case '--dry-run':
+        cli.dryRun = true;
+        break;
+      case '--delete':
+        cli.delete = true;
+        break;
+      case '--delete-all':
+        cli.deleteAll = true;
+        break;
+      case '--json':
+        cli.json = true;
+        break;
+      case '--root':
+        cli.root = args[++i];
+        break;
+      case '--exclude':
+        cli.exclude = [...(cli.exclude ?? []), args[++i]];
+        break;
+      case '--profile':
+        cli.profile = args[++i];
+        break;
+      case '--disable':
+        cli.disable = [...(cli.disable ?? []), args[++i]];
+        break;
+    }
+  }
+
+  return cli;
+}
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-const shouldStartCli = process.argv[1] === './src/main.ts' || process.argv[1] === './main.ts';
-if (shouldStartCli) {
-  main();
-}
-
-export default async function main() {
-  try {
-    console.log('SkillSkill - Minimal CLI tool for cleaning skill files');
-    console.log('=========================================================\n');
-  } catch (e) {
-    console.error('Error in main():', e);
-    process.exit(1);
-  }
-
-  const logger = new LoggerService();
-  const searchStatus = new ScanStatus();
-
-  const npkill = new Npkill({ logger, searchStatus });
-
-  const targets = ['**/skills*', '**/skill*', '**/ai*', '**/agent*'];
-  const params = {
-    targets,
-    exclude: [],
-    performRiskAnalysis: true,
-    sortBy: 'size',
-  };
-
-  console.log(`Scanning: ${process.cwd()}\n`);
-
-  const results: string[] = [];
-  npkill.startScan$(process.cwd(), params).forEach((folder: string) => results.push(folder));
-
-  if (results.length === 0) {
-    console.log('No skill-related folders found.');
-    process.exit(0);
-  }
-
-  console.log(`Found ${results.length} skill-related folder(s):\n`);
-
-  for (let i = 0; i < results.length; i++) {
-    const size = npkill.getSize$(results[i]);
-    console.log(`${i + 1}. ${results[i]} (size: ${size} bytes)`);
-  }
-
-  console.log(`\n${results.length + 1}. Cancel`);
-
-  const selectedIndices: number[] = [];
-
-  for (let i = 0; i < results.length; i++) {
-    await ask(`Select folder ${i + 1} to delete? (y/n): `);
-  }
-
-  const input = await ask(
-    `Select folders to delete (comma-separated numbers, or "all" to delete everything, "cancel" to abort): `
-  );
-
-  rl.close();
-}
-
-function ask(question: string): Promise<void> {
+function ask(question: string): Promise<string> {
   return new Promise((resolve) => {
-    rl.question(question, (answer: string) => {
-      resolve();
+    rl.question(question, (answer) => {
+      resolve(answer.trim());
     });
   });
 }
+
+function isCliInvocation(): boolean {
+  const arg = process.argv[1];
+  return !arg || arg.endsWith('/main.ts') || arg.endsWith('/main.js') || arg.endsWith('/skillskill');
+}
+
+async function main() {
+  if (!isCliInvocation()) return;
+
+  try {
+    const cli = parseArgs(process.argv);
+    const fileConfig = loadConfig();
+    const config = resolveConfig(cli, fileConfig);
+
+    // Scan
+    const results = scanWithProfiles(config.profiles, config.exclude);
+
+    if (results.length === 0) {
+      console.log('No skill directories found.');
+      rl.close();
+      process.exit(0);
+    }
+
+    // Display
+    printScanResults(results, config.dryRun);
+
+    // Handle --delete-all
+    let selectedResults = results;
+    if (config.deleteAll && !config.dryRun) {
+      const confirm = await ask('Delete ALL items? Type yes to confirm: ');
+      if (confirm !== 'yes') {
+        console.log('Aborted.');
+        rl.close();
+        process.exit(2);
+      }
+    } else if (!config.deleteAll) {
+      // Interactive selection
+      let selectionInput = '';
+      while (!selectionInput) {
+        selectionInput = await ask('Select items to delete (e.g. 1,3,5-8,a,q): ');
+      }
+
+      const selection = parseSelection(selectionInput);
+
+      if (selection.quit) {
+        rl.close();
+        process.exit(0);
+      }
+
+      if (selection.all) {
+        selectedResults = results;
+      } else if (selection.indices.size > 0) {
+        selectedResults = [...selection.indices]
+          .filter((i) => i >= 1 && i <= results.length)
+          .map((i) => results[i - 1]);
+      } else {
+        console.log('No valid items selected.');
+        rl.close();
+        process.exit(2);
+      }
+    }
+
+    // Dry-run: print summary and exit
+    if (config.dryRun) {
+      const totalSize = selectedResults.reduce((sum, r) => sum + r.size, 0);
+      console.log(`\nWould delete ${selectedResults.length} item(s) (${totalSize} bytes).`);
+      rl.close();
+      process.exit(0);
+    }
+
+    // Confirmation
+    printConfirmation(selectedResults, results);
+    const confirm = await ask('Proceed? [y/N] ');
+    if (confirm.toLowerCase() !== 'y') {
+      console.log('Aborted.');
+      rl.close();
+      process.exit(2);
+    }
+
+    // Delete
+    let deleted = 0;
+    let failed = 0;
+    let freedBytes = 0;
+
+    for (const item of selectedResults) {
+      const result = deleteDir(item.path, false);
+      printDeletionProgress(result);
+      if (result.ok) {
+        deleted++;
+        freedBytes += item.size;
+      } else {
+        failed++;
+      }
+    }
+
+    printSummary(deleted, failed, freedBytes);
+    rl.close();
+    process.exit(failed > 0 ? 1 : 0);
+  } catch (err) {
+    console.error('Error:', err);
+    rl.close();
+    process.exit(1);
+  }
+}
+
+main();
