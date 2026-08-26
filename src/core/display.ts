@@ -1,9 +1,14 @@
 import * as os from 'os';
+import * as readline from 'readline';
+import ansiEscapes from 'ansi-escapes';
+import pc from 'picocolors';
 import { ScanResult, SkillProfile } from './interfaces/config.interface.js';
 import { totalSize } from './scan.js';
 import { DEFAULT_PROFILES } from './constants.js';
 
 const HOME = os.homedir();
+const MARGINS = { ROW_RESULTS_START: 6, FOLDER_COLUMN_START: 1 };
+const CURSOR_COLOR = 'bgBlue';
 
 export function formatSize(bytes: number): string {
   if (bytes >= 1073741824) return `${(bytes / 1073741824).toFixed(1)} GB`;
@@ -12,10 +17,8 @@ export function formatSize(bytes: number): string {
   return `${bytes} B`;
 }
 
-export function truncatePath(p: string, maxWidth: number): string {
-  const display = p.startsWith(HOME) ? `~${p.slice(HOME.length)}` : p;
-  if (display.length <= maxWidth) return display;
-  return `...${display.slice(display.length - maxWidth + 3)}`;
+function getProfileName(id: string): string {
+  return DEFAULT_PROFILES.find((p) => p.id === id)?.name ?? id;
 }
 
 function groupByProfile(results: ScanResult[]): Map<string, ScanResult[]> {
@@ -32,160 +35,344 @@ function groupByProfile(results: ScanResult[]): Map<string, ScanResult[]> {
   return groups;
 }
 
-function getProfileName(id: string): string {
-  return DEFAULT_PROFILES.find((p) => p.id === id)?.name ?? id;
+interface FlatItem {
+  globalIndex: number;
+  item: ScanResult;
+  group: string;
+  isGroupHeader: boolean;
 }
 
-export interface RenderState {
-  results: ScanResult[];
-  selected: Set<number>;
-  cursor: number;
-  scrollOffset: number;
-  mode: 'scan' | 'select' | 'confirm' | 'deleting' | 'done';
-  dryRun: boolean;
-  deleted: number;
-  failed: number;
-  freedBytes: number;
-}
-
-function buildFlatList(results: ScanResult[]): { index: number; item: ScanResult; group: string }[] {
+function buildFlatList(results: ScanResult[]): FlatItem[] {
   const groups = groupByProfile(results);
-  const flat: { index: number; item: ScanResult; group: string }[] = [];
-  let idx = 1;
+  const flat: FlatItem[] = [];
+  let globalIdx = 0;
+
   for (const [groupId, items] of groups) {
+    flat.push({
+      globalIndex: -1,
+      item: items[0],
+      group: groupId,
+      isGroupHeader: true,
+    });
     for (const item of items) {
-      flat.push({ index: idx, item, group: groupId });
-      idx++;
+      globalIdx++;
+      flat.push({ globalIndex: globalIdx, item, group: groupId, isGroupHeader: false });
     }
   }
   return flat;
 }
 
-function countGroups(results: ScanResult[]): number {
-  const groups = new Set<string>();
-  for (const r of results) groups.add(r.profileId.split(',')[0]);
-  return groups.size;
+function shortenText(text: string, width: number): string {
+  if (text.length <= width) return text;
+  return text.substring(0, width - 3) + '...';
 }
 
-export function render(state: RenderState): void {
-  const write = process.stdout.write.bind(process.stdout);
-  const cols = process.stdout.columns ?? 80;
-  const rows = process.stdout.rows ?? 24;
-  const pathWidth = cols - 14;
+export interface TuiState {
+  results: ScanResult[];
+  flatList: FlatItem[];
+  selected: Set<number>;
+  cursorIndex: number;
+  scroll: number;
+  mode: 'select' | 'confirm' | 'deleting' | 'done' | 'idle';
+  dryRun: boolean;
+  deleted: number;
+  failed: number;
+  freedBytes: number;
+  selectMode: boolean;
+}
 
-  write('\x1b[2J\x1b[H');
+export class TuiRenderer {
+  private buffer = '';
+  private previousBuffer = '';
+  private state: TuiState;
+  private onKeyCallback: ((key: string, ctrl: boolean) => void) | null = null;
+  private stdinRestore: (() => void) | null = null;
 
-  const title = state.dryRun ? 'SkillSkill — DRY RUN' : 'SkillSkill';
-  write(`\x1b[1m${title}\x1b[0m\r\n`);
-  write('\r\n');
+  constructor(results: ScanResult[], dryRun: boolean) {
+    const flatList = buildFlatList(results);
+    this.state = {
+      results,
+      flatList,
+      selected: new Set(),
+      cursorIndex: 1,
+      scroll: 0,
+      mode: 'select',
+      dryRun,
+      deleted: 0,
+      failed: 0,
+      freedBytes: 0,
+      selectMode: true,
+    };
+  }
 
-  const flat = buildFlatList(state.results);
-  const maxVisible = rows - 6;
-  const groups = groupByProfile(state.results);
+  startListening(onKey: (key: string, ctrl: boolean) => void): void {
+    this.onKeyCallback = onKey;
+    readline.emitKeypressEvents(process.stdin);
+    if (process.stdin.isTTY) {
+      process.stdin.setRawMode(true);
+    }
+    process.stdin.resume();
 
-  let displayed = 0;
-  let globalIdx = 0;
+    const handler = (_: unknown, key: { name: string; sequence: string; ctrl: boolean }) => {
+      if (key.name !== '') {
+        this.onKeyCallback?.(key.name, key.ctrl);
+      }
+    };
+    process.stdin.on('keypress', handler);
 
-  for (const [groupId, items] of groups) {
-    if (displayed >= maxVisible) break;
+    this.stdinRestore = () => {
+      process.stdin.removeListener('keypress', handler);
+      if (process.stdin.isTTY) {
+        process.stdin.setRawMode(false);
+      }
+      process.stdin.pause();
+    };
+  }
 
-    const name = getProfileName(groupId);
-    const subtotal = formatSize(totalSize(items));
-    write(`\x1b[36m=== ${name} (${items.length} items, ${subtotal}) ===\x1b[0m\r\n`);
-    displayed++;
+  stopListening(): void {
+    this.stdinRestore?.();
+    this.stdinRestore = null;
+  }
 
-    for (const item of items) {
-      if (displayed >= maxVisible) break;
-      globalIdx++;
+  private print(text: string): void {
+    this.buffer += text;
+  }
 
-      const isSelected = state.selected.has(globalIdx);
-      const isCursor = state.cursor === globalIdx && state.mode === 'select';
+  private printAt(text: string, x: number, y: number): void {
+    this.print(ansiEscapes.cursorTo(x, y));
+    this.print(text);
+  }
 
-      const num = String(globalIdx).padStart(2, ' ');
-      const size = formatSize(item.size).padStart(6, ' ');
-      const displayPath = truncatePath(item.path, pathWidth);
+  private clearLine(row: number): void {
+    this.printAt(ansiEscapes.eraseLine, 0, row);
+  }
 
-      let line: string;
-      if (state.mode === 'scan' || state.mode === 'done') {
-        line = `${num}. ${size}  ${displayPath}`;
-      } else if (isCursor && isSelected) {
-        line = `${num}. ${size}  \x1b[7m\x1b[32m ✔ \x1b[0m ${displayPath}`;
-      } else if (isCursor) {
-        line = `${num}. ${size}  \x1b[7m   \x1b[0m ${displayPath}`;
-      } else if (isSelected) {
-        line = `${num}. ${size}  \x1b[32m ✔ \x1b[0m ${displayPath}`;
-      } else {
-        line = `${num}. ${size}    ${displayPath}`;
+  private flush(): void {
+    if (this.buffer === this.previousBuffer) {
+      this.buffer = '';
+      return;
+    }
+    process.stdout.write(this.buffer);
+    this.previousBuffer = this.buffer;
+    this.buffer = '';
+  }
+
+  private get terminal(): { columns: number; rows: number } {
+    return {
+      columns: process.stdout.columns ?? 80,
+      rows: process.stdout.rows ?? 24,
+    };
+  }
+
+  private getVisibleItems(): FlatItem[] {
+    const { rows } = this.terminal;
+    const maxVisible = rows - MARGINS.ROW_RESULTS_START - 2;
+    const visible: FlatItem[] = [];
+
+    let count = 0;
+    for (let i = 0; i < this.state.flatList.length; i++) {
+      if (count >= maxVisible) break;
+      visible.push(this.state.flatList[i]);
+      if (!this.state.flatList[i].isGroupHeader) count++;
+    }
+    return visible;
+  }
+
+  private getSelectableItemAtCursor(): FlatItem | null {
+    const visible = this.getVisibleItems();
+    let selectableCount = 0;
+    for (const item of visible) {
+      if (item.isGroupHeader) continue;
+      selectableCount++;
+      if (selectableCount === this.state.cursorIndex) return item;
+    }
+    return null;
+  }
+
+  render(): void {
+    const { columns, rows } = this.terminal;
+    const pathWidth = columns - 16;
+
+    this.buffer = '';
+    this.print(ansiEscapes.clearTerminal);
+
+    const title = this.state.dryRun
+      ? pc.bold('SkillSkill — DRY RUN')
+      : pc.bold('SkillSkill');
+    this.print(title + '\r\n');
+
+    if (this.state.selectMode) {
+      const selectedMsg = `${this.state.selected.size} selected `;
+      const instruction = pc.gray(
+        pc.bold('j') + '/' + pc.bold('k') + ': move | ' +
+        pc.bold('SPACE') + ': toggle | ' +
+        pc.bold('a') + ': all | ' +
+        pc.bold('ENTER') + ': confirm | ' +
+        pc.bold('q') + ': quit'
+      );
+      const line = pc.bgYellow(pc.black(selectedMsg)) + ' ' + instruction;
+      this.print(line + '\r\n');
+    }
+
+    this.print('\r\n');
+
+    const visible = this.getVisibleItems();
+    let selectableRow = 0;
+
+    for (const flatItem of visible) {
+      const row = MARGINS.ROW_RESULTS_START + selectableRow;
+      this.clearLine(row);
+
+      if (flatItem.isGroupHeader) {
+        const name = getProfileName(flatItem.group);
+        const items = this.state.results.filter(
+          (r) => r.profileId.split(',')[0] === flatItem.group
+        );
+        const subtotal = formatSize(totalSize(items));
+        const header = pc.cyan(`=== ${name} (${items.length} items, ${subtotal}) ===`);
+        this.printAt(header, MARGINS.FOLDER_COLUMN_START, row);
+        selectableRow++;
+        continue;
       }
 
-      write(`${line}\r\n`);
-      displayed++;
+      const item = flatItem.item;
+      const globalIdx = flatItem.globalIndex;
+      const isCursor = this.state.cursorIndex === (selectableRow + 1) && this.state.mode === 'select';
+      const isSelected = this.state.selected.has(globalIdx);
+      const num = String(globalIdx).padStart(2, ' ');
+      const size = formatSize(item.size).padStart(6, ' ');
+      const displayPath = shortenText(
+        item.path.startsWith(HOME) ? `~${item.path.slice(HOME.length)}` : item.path,
+        pathWidth
+      );
+
+      let indicator = '  ';
+      if (isSelected) indicator = pc.green('✔ ');
+
+      let line: string;
+      if (isCursor) {
+        const content = `${num} ${size} ${indicator}${displayPath}`;
+        line = pc[CURSOR_COLOR](content);
+        this.printAt(pc[CURSOR_COLOR](' '.repeat(columns - 1)), 0, row);
+      } else if (isSelected) {
+        line = `${num} ${size} ${pc.green('✔ ')}${pc.blue(displayPath)}`;
+      } else {
+        line = `${num} ${size}  ${displayPath}`;
+      }
+
+      this.printAt(line, MARGINS.FOLDER_COLUMN_START, row);
+      selectableRow++;
     }
-    write('\r\n');
+
+    const totalRow = rows - 2;
+    this.clearLine(totalRow);
+    const total = formatSize(totalSize(this.state.results));
+    this.printAt(pc.bold(`Total: ${this.state.results.length} items, ${total}`), 0, totalRow);
+
+    this.printScrollBar();
+    this.flush();
   }
 
-  const total = formatSize(totalSize(state.results));
-  write(`\x1b[1mTotal: ${state.results.length} items, ${total}\x1b[0m\r\n`);
-  write('\r\n');
+  private printScrollBar(): void {
+    const { rows } = this.terminal;
+    const totalResults = this.state.results.length;
+    const maxVisible = rows - MARGINS.ROW_RESULTS_START - 2;
 
-  if (state.mode === 'select') {
-    const selCount = state.selected.size;
-    write(`\x1b[2m[↑↓] move  [SPACE] select  [a] all  [ENTER] confirm  [q] quit\x1b[0m`);
-    if (selCount > 0) {
-      write(`  \x1b[32m${selCount} selected\x1b[0m`);
+    if (totalResults <= maxVisible) return;
+
+    const scrollBarBg = pc.gray('┊');
+    const scrollBarActive = pc.gray('█');
+    const start = MARGINS.ROW_RESULTS_START;
+    const end = rows - 3;
+    const scrollPercentage = this.state.scroll / (totalResults - maxVisible);
+    const scrollBarPosition = Math.round(scrollPercentage * (end - start) + start);
+
+    for (let i = start; i <= end; i++) {
+      this.printAt(scrollBarBg, this.terminal.columns - 1, i);
     }
-    write('\r\n');
-  } else if (state.mode === 'confirm') {
-    write(`\x1b[33mDelete ${state.selected.size} item(s)? [y/N]\x1b[0m\r\n`);
-  } else if (state.mode === 'deleting') {
-    write(`\x1b[33mDeleting...\x1b[0m\r\n`);
-  } else if (state.mode === 'done') {
-    if (state.failed > 0) {
-      write(`\x1b[32mDeleted ${state.deleted} items, freed ${formatSize(state.freedBytes)}.\x1b[0m \x1b[31m${state.failed} failed.\x1b[0m\r\n`);
-    } else if (state.deleted > 0) {
-      write(`\x1b[32mDeleted ${state.deleted} items, freed ${formatSize(state.freedBytes)}.\x1b[0m\r\n`);
+    this.printAt(scrollBarActive, this.terminal.columns - 1, scrollBarPosition);
+  }
+
+  moveCursor(delta: number): void {
+    const maxSelectable = this.state.results.length;
+    const oldIndex = this.state.cursorIndex;
+    this.state.cursorIndex = Math.max(1, Math.min(maxSelectable, this.state.cursorIndex + delta));
+    if (oldIndex !== this.state.cursorIndex) this.fitScroll();
+  }
+
+  moveCursorPage(delta: number): void {
+    const { rows } = this.terminal;
+    const pageSize = rows - MARGINS.ROW_RESULTS_START - 2;
+    this.moveCursor(delta * pageSize);
+  }
+
+  moveCursorFirst(): void {
+    this.state.cursorIndex = 1;
+    this.state.scroll = 0;
+  }
+
+  moveCursorLast(): void {
+    this.state.cursorIndex = this.state.results.length;
+    this.fitScroll();
+  }
+
+  private fitScroll(): void {
+    const { rows } = this.terminal;
+    const maxVisible = rows - MARGINS.ROW_RESULTS_START - 2;
+    const cursorRow = this.state.cursorIndex + this.state.scroll;
+
+    if (cursorRow < this.state.scroll + 1) {
+      this.state.scroll = cursorRow - 1;
+    } else if (cursorRow > this.state.scroll + maxVisible) {
+      this.state.scroll = cursorRow - maxVisible;
+    }
+    this.state.scroll = Math.max(0, Math.min(this.state.scroll, this.state.results.length - maxVisible));
+  }
+
+  toggleSelect(): void {
+    const item = this.getSelectableItemAtCursor();
+    if (!item) return;
+    const idx = item.globalIndex;
+    if (this.state.selected.has(idx)) {
+      this.state.selected.delete(idx);
+    } else {
+      this.state.selected.add(idx);
     }
   }
-}
 
-export function printScanResults(results: ScanResult[], dryRun: boolean): void {
-  const state: RenderState = {
-    results,
-    selected: new Set(),
-    cursor: 1,
-    scrollOffset: 0,
-    mode: 'scan',
-    dryRun,
-    deleted: 0,
-    failed: 0,
-    freedBytes: 0,
-  };
-  render(state);
-}
-
-export function printConfirmation(items: ScanResult[]): void {
-  const size = totalSize(items);
-  console.log(`\nWill delete ${items.length} item(s) (${formatSize(size)}):`);
-  for (const item of items) {
-    console.log(`  ${item.path} (${formatSize(item.size)})`);
+  toggleSelectAll(): void {
+    if (this.state.selected.size === this.state.results.length) {
+      this.state.selected.clear();
+    } else {
+      for (let i = 1; i <= this.state.results.length; i++) {
+        this.state.selected.add(i);
+      }
+    }
   }
-  console.log('');
-}
 
-export function printDeletionProgress(result: { ok: boolean; path: string; error?: string }): void {
-  if (result.ok) {
-    console.log(`  \u2713 deleted ${result.path}`);
-  } else {
-    console.log(`  \u2717 FAILED ${result.path} \u2014 ${result.error ?? 'unknown error'}`);
+  setMode(mode: TuiState['mode']): void {
+    this.state.mode = mode;
   }
-}
 
-export function printSummary(deleted: number, failed: number, freedBytes: number): void {
-  console.log('');
-  if (failed > 0) {
-    console.log(`Deleted ${deleted} items, freed ${formatSize(freedBytes)}. ${failed} failed.`);
-  } else {
-    console.log(`Deleted ${deleted} items, freed ${formatSize(freedBytes)}.`);
+  updateDeletionResult(ok: boolean, path: string, size: number): void {
+    if (ok) {
+      this.state.deleted++;
+      this.state.freedBytes += size;
+    } else {
+      this.state.failed++;
+    }
+  }
+
+  getSelectedResults(): ScanResult[] {
+    return [...this.state.selected]
+      .filter((i) => i >= 1 && i <= this.state.results.length)
+      .map((i) => this.state.results[i - 1]);
+  }
+
+  exit(): void {
+    this.stopListening();
+    this.print(ansiEscapes.cursorShow);
+    this.print('\r\n');
   }
 }
 
