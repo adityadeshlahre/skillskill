@@ -10,6 +10,9 @@ coverage/
 dist/
 lib/
 
+# compiled test files
+test/*.js
+
 # test artifacts
 .stryker-tmp
 stryker.log

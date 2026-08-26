@@ -29,12 +29,12 @@
     "url": "git+https://github.com/adityadeshlahre/skillskill.git"
   },
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.js",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./dist/index.js"
   },
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ],
   "author": "Aditya Deshlahre <wymaditya@gmail.com> (https://github.com/adityadeshlahre)",
   "publishConfig": {
@@ -49,7 +49,7 @@
     "prepare": "husky"
   },
   "bin": {
-    "skillskill": "dist/cli.js"
+    "skillskill": "dist/main.js"
   },
   "dependencies": {
     "rxjs": "^7.8.2"
