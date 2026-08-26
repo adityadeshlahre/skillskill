@@ -1,6 +1,7 @@
 import * as os from 'os';
 import { ScanResult, SkillProfile } from './interfaces/config.interface.js';
 import { totalSize } from './scan.js';
+import { DEFAULT_PROFILES } from './constants.js';
 
 export function formatSize(bytes: number): string {
   if (bytes >= 1073741824) return `${(bytes / 1073741824).toFixed(1)} GB`;
@@ -37,11 +38,7 @@ export function printScanResults(results: ScanResult[], dryRun: boolean): void {
   const groups = groupByProfile(results);
   let globalIndex = 1;
 
-  const profileNames: Record<string, string> = {
-    opencode: 'OpenCode',
-    claude: 'Claude Code',
-    cursor: 'Cursor',
-  };
+  const profileNames = Object.fromEntries(DEFAULT_PROFILES.map((p) => [p.id, p.name]));
 
   console.log('');
   if (dryRun) {

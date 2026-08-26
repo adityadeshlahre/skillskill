@@ -41,7 +41,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
     "start": "node -r tsconfig-paths/register --loader ts-node/esm --no-warnings ./src/index.ts",
     "test": "vitest",
     "publish": "npm run build && npm publish",
@@ -61,6 +62,7 @@
     "@typescript-eslint/eslint-plugin": "^8.68.0",
     "@typescript-eslint/parser": "^8.68.0",
     "commitlint": "^21.2.2",
+    "esbuild": "^0.28.2",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-n": "^18.3.0",
