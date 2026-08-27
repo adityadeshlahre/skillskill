@@ -1,1 +1,1 @@
-commitlint -E HUSKY_GIT_PARAMS
+pnpm commitlint --edit $1
